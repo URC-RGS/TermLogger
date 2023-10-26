@@ -12,9 +12,11 @@ filename = 'log/' + '_'.join([''.join(list(filter(lambda x: x.isdigit(), list(el
 port = list(map(str, list_ports.comports()))[0].split(' ')[0]
 # port = 'COM27'
 try:
+    # Открытие порта
     ser = serial.Serial(port, baudrate)
     print(f'Connected to {port} successfully!')
     with open(filename, mode='a') as log_file:
+        # Пока порт открыт:
         while ser.is_open:
             if ser.readable():
                 log_file.write(str(dt.now().time()) + '  ' + str(ser.readline().strip())[2:-1] + '\n')
